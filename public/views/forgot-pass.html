@@ -1,0 +1,71 @@
+<form ng-if="userCtrl.show"  ng-submit="userCtrl.showOtpForm ? userCtrl.verifyOtp() : userCtrl.sendOtpToEmail()">
+	<div class="login_page">
+		<div class="backbtn text-center">
+			<a href="/" class=" btn btn-danger btn-lg"><i class="fa fa-arrow-left"></i> Go Back To HomePage</a>
+		</div>
+		<div class="container ">
+			<div class="login-form">
+				<div class="row align-items-center justify-content-center">
+					<div class="col-md-6 ">
+						<div class="card text-center ">
+							<div class="card-header ">
+								Forgot Password
+							</div>
+							<div class="card-body">
+								<div class="card-title font-weight-bold">
+									Enter Your Email
+								</div>
+								<p>{{userCtrl.notify}}</p>
+								<div class="form-group">
+									<div class="input-group">
+										<input class="form-control" placeholder="Email" ng-disabled="userCtrl.showOtpForm" ng-model="userCtrl.email" type="email" autofocus required>
+									</div>
+								</div>
+								<div class="form-group"  ng-if="userCtrl.showOtpForm">
+									<div class="input-group">
+										<input class="form-control" placeholder="Verify Otp" ng-model="userCtrl.otp" type="password" value="" required>
+									</div>
+								</div>
+								<div class="form-group">
+									<input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+	</div>
+</form>
+<form ng-if="userCtrl.showPasswordResetForm" ng-submit="userCtrl.resetPassword()">
+	<div class="container ">
+		<div class="login-form">
+			<div class="row align-items-center justify-content-center">
+				<div class="col-md-6 ">
+					<div class="card text-center ">
+						<div class="card-header ">
+							Set Your New Password
+						</div>
+						<div class="card-body">
+							<p>{{userCtrl.notify}}</p>
+							<div class="form-group">
+								<div class="input-group">
+									<input class="form-control" placeholder="Password" ng-model="userCtrl.password" type="password" autofocus required>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<input class="form-control" placeholder="Confirm Password" ng-model="userCtrl.cpassword" type="password" value="" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 
+
+</form>

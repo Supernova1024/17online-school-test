@@ -1,0 +1,160 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 ">
+  <h1 class="h2" style="text-transform: capitalize;">Hello, {{name}}</h1>
+</div>
+<div class="row" ng-if="role == 'Administrator'" ng-init="dashCtrl.getAllstudents()">
+  <div class="col-xl-4">
+      <div class="stats stats-primary">
+          <h3 class="stats-title"> Students </h3>
+          <div class="stats-content">
+              <div class="stats-icon">
+                  <a ui-sref="dashboard.students"><i class="fa fas fa-users"></i></a>
+              </div>
+              <div class="stats-data">
+                  <div class="stats-number">{{dashCtrl.allstudents.length}}</div>
+                  <div class="stats-change">
+                      <span class="stats-percentage">+25%</span>
+                      <span class="stats-timeframe">from last month</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="col-xl-4">
+      <div class="stats stats-success ">
+          <h3 class="stats-title"> Instructors </h3>
+          <div class="stats-content">
+              <div class="stats-icon">
+                  <a ui-sref="dashboard.instructors"><i class="fa fas fa-graduation-cap"></i></a>
+              </div>
+              <div class="stats-data">
+                  <div class="stats-number">{{instructorArrayLength}}</div>
+                  <div class="stats-change">
+                      <span class="stats-percentage">+17.5%</span>
+                      <span class="stats-timeframe">from last month</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="col-xl-4">
+      <div class="stats stats-danger">
+          <h3 class="stats-title"> Tests </h3>
+          <div class="stats-content">
+              <div class="stats-icon">
+                  <a ui-sref="dashboard.testquestions"><i class="fa fas fa-laptop"></i></a>
+              </div>
+              <div class="stats-data">
+                  <div class="stats-number">{{testArrayLength}}</div>
+                  <div class="stats-change">
+                      <span class="stats-percentage">+17.5%</span>
+                      <span class="stats-timeframe">from last month</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Icon Cards-->
+<div class="row" ng-if="role != 'Administrator'">
+  <div  class="col-xl-6 col-sm-6 mb-4">
+    <div class="card text-white bg-primary o-hidden h-100">
+      <div class="card-body">
+        <div class="card-body-icon">
+          <i class="fa fa-fw fa-file"></i>
+        </div>
+        <div class="mr-5">{{testArrayLength}} Test Available!</div>
+      </div>
+      <a ng-if="role == 'Student'" class="card-footer text-white clearfix small z-1" ui-sref="dashboard.tests">
+        <span class="float-left">View Details</span>
+        <span class="float-right">
+          <i class="fa fa-angle-right"></i>
+        </span>
+      </a>
+      <a ng-if="testArrayLength>0 && role != 'Student'" class="card-footer text-white clearfix small z-1" ui-sref="dashboard.testquestions">
+        <span class="float-left">View Details</span>
+        <span class="float-right">
+          <i class="fa fa-angle-right"></i>
+        </span>
+      </a>
+    </div>
+  </div>
+  <div ng-if="role != 'Student'" class="col-xl-6 col-sm-6 mb-4">
+    <div class="card text-white bg-success o-hidden h-100">
+      <div class="card-body">
+        <div class="card-body-icon">
+          <i class="fa fa-fw fa-bar-chart"></i>
+        </div>
+        <div class="mr-5">Performance Of Users</div>
+      </div>
+      <a  ng-if="testArrayLength>0" class="card-footer text-white clearfix small z-1" ui-sref="dashboard.userperformances">
+        <span class="float-left">View Details</span>
+        <span class="float-right">
+          <i class="fa fa-angle-right"></i>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+<div ng-if="role == 'Instructor'" ng-init="dashCtrl.getstudents()" style="display:none" class="card mb-3">
+  <div class="card-header">
+    <i class="fa fa-users"></i> Registered Users
+    <input class="form-control float-right col-sm-2" ng-model="filterusers.name" type="search" placeholder="Search name.." aria-label="Search">
+  </div>
+  <div class="registered-users card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Institution</th>
+            <!-- <th scope="col">Graduation Year</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-if="user" ng-repeat="user in dashCtrl.allstudents | filter:filterusers">
+            <th scope="row"><a>{{$index+1}}</a></th>
+            <td class="hover-style"><a>{{user.name}}</a></td>
+            <td><a>{{user.email}}</a></td>
+            <td ng-if="user.institution"><a>{{user.institution}}</a></td>
+            <td ng-if="!user.institution"><a>NA</a></td><!-- 
+            <td ng-if="user.expected_year"><a>{{user.expected_year}}</a></td>
+            <td ng-if="!user.expected_year"><a>NA</a></td> -->
+          </tr>
+          <tr ng-if="!dashCtrl.allstudents">
+            <td colspan="5" style="text-align:center">There is no user to be registered.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div ng-if="role == 'Student'" class="card mb-3">
+  <div ng-init="dashCtrl.myPerformance()" class="card-header">
+    <i class="fa fa-area-chart"></i>My Performance
+  </div>
+  <div class="card-body">
+   <div class="row" ng-if="dashCtrl.myfilteredPerformances.length > 0">
+    <div class="col-8">
+      <h5><b>No. Of Tests Taken:</b> {{dashCtrl.myfilteredPerformances.length}}</h5>
+      <h5><b>Best Score:</b> {{dashCtrl.mybestPerformance*100}}%</h5>
+      <h5><b>Least Score:</b> {{dashCtrl.myworstPerformance*100}}%</h5>
+    </div>
+    <div class="col-4">
+      <h6>My Average Performance</h6>
+      <div class="c100 p{{dashCtrl.myavgPerformance * 100}} small" >
+        <span style="color: #000;">{{dashCtrl.myavgPerformance * 100}}%</span>
+        <div class="slice">
+          <div class="bar"></div>
+          <div class="fill"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-if="dashCtrl.myfilteredPerformances.length == 0">
+    <h3><b>No Tests Taken.</h3>
+    </div>
+  </div>
+</div>
+  

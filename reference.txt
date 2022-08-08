@@ -1,0 +1,4 @@
+- make the size of report page smaller
+- add veiw$download button
+- add the feature that download pdf for the report
+..

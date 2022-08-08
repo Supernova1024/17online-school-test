@@ -1,0 +1,115 @@
+
+<h1 class="h2 border-bottom text-center">Tests Available</h1>
+<div ng-if="testCtrl.testArrayLength > 0" class="row">
+  <div ng-repeat="test in testCtrl.tests" class="col-xl-4 col-sm-6 mb-4">
+    <div class="card text-primary border-dark" style="max-width: 22rem;" ng-init="testCtrl.initializeClock(test, $index)" >
+        <div class="card-body">
+            <h4 style="text-transform: capitalize;" class="card-title border-bottom">{{test.title}}
+            <span class="pull-right">{{test.total_num * 2}} Min</span>
+            </h4>
+            <p class="card-text" style="color: black;">Course: {{test.course}}</p>
+            <p class="card-text" style="color: black;">Serial: {{test.serial}}</p>
+            <p ng-if="test.status == 'not'" class="card-text" style="color: black;">Date/Time Posted: {{test.created.replace('T', ' ').split('.')[0]}}</p>
+            <p ng-if="test.status == 'not'" class="card-text" style="color: black;">Date/Time Expires: {{test.expired.replace('T', ' ').split('.')[0]}}</p>
+            <p ng-if="test.status != 'not'" class="card-text" style="color: black;">Grade: {{test.percent}} %</p>
+            <p ng-if="test.status != 'not'" class="card-text" style="color: black;">Date/Time Submitted: {{test.time_submitted}}</p>
+            <div id="countdown" class="countdown_{{$index}}" ng-if="test.status == 'not' || test.status == 'expired'">
+              <div>
+                <span>{{ testCtrl.CountDown[$index].days }}</span>
+                <div class="label">Days</div>
+              </div>
+              <div>
+                <span>{{ testCtrl.CountDown[$index].hours }}</span>
+                <div class="label">Hours</div>
+              </div>
+              <div>
+                <span>{{ testCtrl.CountDown[$index].minutes }}</span>
+                <div class="label">Minutes</div>
+              </div>
+              <div>
+                <span>{{ testCtrl.CountDown[$index].seconds }}</span>
+                <div class="label">Seconds</div>
+              </div>
+            </div>
+            <!-- Links -->
+            <button ng-if="test.status == 'not'" ng-click="testCtrl.showTestTimeInModal(test._id, test.title, test.total_num)" data-id="{{test.time}}" type="button"  class="taketest btn btn-outline-dark"> Take Test</button>
+            <a ui-sref="dashboard.edittest({tid:test._id})" ><button ng-if="admin == true" type="button" class="btn btn-outline-dark"><i class="fa fa-fw fa-pencil"></i>Edit</button></a>
+            <a ui-sref="dashboard.result({tid:test._id})" ><button ng-if="test.status != 'not' && test.status != 'expired'" type="button" class="btn btn-outline-dark"> Show Results</button></a>
+            <button ng-if="admin == true" ng-click="testCtrl.deleteTest(test._id)" type="button" class="btn btn-outline-dark"><i class="fa fa-fw fa-trash" aria-hidden="true"></i>Delete</button>
+            <a ui-sref="dashboard.allusers({tid:test._id})" ><button ng-if="admin == true"  type="button" class="btn btn-outline-dark"><i class="fa fa-fw fa-users" aria-hidden="true"></i>Enrolled Users</button></a>
+            <div ng-if="test.status=='expired'" style="margin: auto;color: #dc3545; text-align: center"><h4>Expired</h4></div>
+        </div>
+        <div ng-if="(test.testAttemptedBy | filter : {'email':email}).length > 0" class="card-footer">
+            You have already taken this test
+        </div>
+
+    </div>
+    <!-- Modal  for instructions-->
+    <div class="modal fade" id="instructionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document" style="max-width: 700px">
+        <div class="modal-content">
+          <div class="modal-header" style="margin:0px auto">
+            <h3 class="modal-title " id="exampleModalLabel">Academic Integrity Certification</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" style="position: absolute; right: 15px; top: 15px;">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" style="font-size:20px; padding: 2rem">
+              <div>
+                Student Name: &nbsp;&nbsp;&nbsp;{{name}}
+              </div>
+              <div>
+                Student ID: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{userID}}
+              </div>
+              <div>
+                Test Name: &nbsp;&nbsp;&nbsp;{{testCtrl.title}}
+              </div>
+            </br>
+              <ul>
+                 <li style="list-style: initial;">I pledge that I have my institution’s policy on academic integrity as well as the specific instructions for this exam.</li>
+                 <li style="list-style: initial;">I affirm that this exam represents my own work, without the use of any unpermitted aids or resources.</li>
+                 <li style="list-style: initial;">I understand that there will no tolerance towards academic dishonesty, and that cheating can and will lead to automatic failure from the class as well as a report to the Academic Integrity Committee.
+                 </li>
+              </ul>
+              <div class="form-group row mt-4">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Initials:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" ng-model="testCtrl.initial">
+                  <span class="error_message spassword_error" ng-show="testCtrl.blank_initial">This field is required.</span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Date:</label>
+                <div class="col-sm-10">
+                  <input type="date" class="form-control" ng-model="testCtrl.datetimetaken" id="date" placeholder="yyyy-MM-dd">
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+            <button type="button" ng-click="testCtrl.runTest()" class="starttest btn btn-primary">Start Test</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+
+<h3 ng-if="testCtrl.testLength == 0" class="text-danger">No Test Found  (:</h3>
+
+<!-- modal operations -->
+<script type="text/javascript">
+ var time;
+ $(document).on('mousemove','.taketest', function(){
+  time = $(this).data('id');
+});
+ $(document).ready(function(){
+   $('.starttest').on('click',function(){
+       $('#instructionModal').modal('hide');
+       $('body').removeClass('modal-open');
+       $('.modal-backdrop').remove();
+
+   });
+});
+
+</script>

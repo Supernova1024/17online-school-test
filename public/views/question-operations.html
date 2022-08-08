@@ -1,0 +1,224 @@
+<!-- create form -->
+<h1 class="h2 border-bottom text-center">Create a New Question</h1>
+<form ng-submit="testCtrl.createTest()" style="margin-top: 30px;">
+	<div class="row align-items-center justify-content-center" ng-if="testCtrl.step[0]">
+		<div class="col-md-6 ">
+			<div class="card text-center ">
+				<div class="card-header ">
+					<b>Please Fill In The Details (Step 1/4)</b>
+				</div>
+				<div class="card-body">
+					<div class="form-group">
+						<div class="input-group">
+							<input class="form-control" placeholder="Question Title" ng-model="testCtrl.testName" type="text" autofocus required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<select class="form-control" ng-model="testCtrl.db" ng-change="testCtrl.selectDatabase(testCtrl.db)">
+								<option value="">Which database do you want to use?</option>
+								<option value="act">Actual Questions</option>
+								<option value="dev">Dev Questions</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" ng-if="testCtrl.view_area_flag">
+						<div class="input-group select-editable">
+							<select class="form-control" ng-model="testCtrl.selectedArea" ng-change="testCtrl.getallSubjects(testCtrl.selectedArea)" style="width: 100%">
+								<option value="">Select Area of Study</option>
+								<option ng-repeat="area in testCtrl.areas" ng-value="area">{{area}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" ng-if="testCtrl.view_subject_flag">
+						<div class="input-group">
+							<select class="form-control" ng-model="testCtrl.selectedSubject" ng-change="testCtrl.getallCourses(testCtrl.selectedSubject)">
+								<option value="">Select Subject</option>
+								<option ng-repeat="subject in testCtrl.subjects" ng-value="subject">{{subject}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" ng-if="testCtrl.view_course_flag">
+						<div class="input-group">
+							<select class="form-control" ng-model="testCtrl.selectedCourse" ng-change="testCtrl.getallChapters(testCtrl.selectedCourse)">
+								<option value="">Select Course</option>
+								<option ng-repeat="course in testCtrl.courses" ng-value="course">{{course}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" ng-if="testCtrl.view_chapter_flag">
+						<div class="input-group">
+							<select class="form-control" ng-model="testCtrl.selectedChapters" multiple size="{{testCtrl.chapters.length + 1}}">
+								<option value="" disabled>Select Chapters</option>
+								<option ng-repeat="chapter in testCtrl.chapters | orderBy: chapter" ng-value="chapter">{{chapter}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" ng-if="testCtrl.loading_category">
+						<img src="img/Spinner-1s-200px.gif" width="50px" height="50px">
+					</div>
+					<!-- <div class="form-group">
+						<label for="formGroupExampleInput" style="float:left;margin-left:10px">Expiration Date and time (Default is one week.)</label>
+						<input class="form-control" placeholder="Expired Date/Time" ng-model="testCtrl.expired" type="datetime-local" required>
+					</div>	 -->				
+					<div class="form-group" ng-if="testCtrl.selectedChapters">
+						<div class="row">
+							<div class="col-md-6 col-lg-6">
+								<input type="button" class="btn btn-lg btn-primary btn-block" value="Next" ng-click="testCtrl.goNext(1)" required>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<input type="button" class="btn btn-lg btn-primary btn-block" value="Cancel" ng-click="testCtrl.goList()" required>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row align-items-center justify-content-center" ng-if="testCtrl.step[1]">
+		<div class="col-md-6 ">
+			<div class="card text-center ">
+				<div class="card-header ">
+					<b>Please Fill In The Details (Step 2/4)</b>
+				</div>
+				<div class="card-body">
+					<div class="form-group">
+						<div class="input-group">
+							<h2>Test Title: {{testCtrl.testName}}</h2>
+						</div>
+					</div>
+					<div ng-repeat="chapter in testCtrl.cha_topics">
+						<h2>{{chapter.name}}</h2>
+						<div class="form-group">
+							<div class="input-group">
+								<select class="form-control" ng-model="testCtrl.selectedtopics[chapter.name]" multiple size="{{chapter.topics.length + 1}}">
+									<option value="" disabled>Select Topics</option>
+									<option ng-repeat="topic in chapter.topics | orderBy: topic" ng-value="topic">{{topic}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row" ng-if="testCtrl.selectedChapters">
+						<div class="col-md-3">
+							<input type="button" class="btn btn-lg btn-primary btn-block" value="Prev" ng-click="testCtrl.goNext(0)">
+						</div>
+						<div class="col-md-6">
+						</div>
+						<div class="col-md-3">
+							<input type="button" class="btn btn-lg btn-primary btn-block" value="Next" ng-click="testCtrl.goNext(2)">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row align-items-center justify-content-center" ng-if="testCtrl.step[2]">
+		<div class="col-md-6 ">
+			<div class="card text-center ">
+				<div class="card-header ">
+					<b>Summary of Test Parameters (Step 3/4)</b>
+				</div>
+				<div class="card-body">
+					<div class="form-group">
+						<div class="input-group">
+							<h5>Test Title: {{testCtrl.testName}}</h5>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<h5>You selected:</h5>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<h6>Area of study: {{testCtrl.selectedArea}}</h6>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<h6>Subject:		{{testCtrl.selectedSubject}}</h6>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<h6>Course:		 {{testCtrl.selectedCourse}}</h6>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<h6>Expired Date/Time:		 {{testCtrl.expired.toString()}}</h6>
+						</div>
+					</div>
+					<div ng-repeat="chapter in testCtrl.selectedChapters">
+						<h2>{{chapter}}</h2>
+						<div class="form-group">
+							<div class="input-group">
+								<select class="form-control" multiple size="{{testCtrl.selectedtopics[chapter].length}}" style="overflow: hidden">
+									<option ng-repeat="topic in testCtrl.selectedtopics[chapter]" ng-value="topic" disabled>{{topic}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row" ng-if="testCtrl.selectedChapters">
+						<div class="col-md-3">
+							<input type="button" class="btn btn-lg btn-primary btn-block" value="Prev" ng-click="testCtrl.goNext(1)">
+						</div>
+						<div class="col-md-5">
+						</div>
+						<div class="col-md-4">
+							<input type="button" class="btn btn-lg btn-primary btn-block" value="Select Questions" ng-click="testCtrl.goNext(3)">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row align-items-center justify-content-center" ng-if="testCtrl.step[3]">
+		<div class="col-md-10">
+			<div class="card text-center" style="margin-bottom: 130px">
+					<div class="card-header">
+						<b>Select Questions for: {{chapter}} {{tp_title}} (Step 3/4)</b>
+					</div>
+					<div class="card-body">
+						
+					</div>
+					<!-- <div class="row" ng-show="testCtrl.view_test[rowIndex][columnIndex]" style="margin-top: 15px;margin-bottom: 15px"> -->
+					<div class="row" ng-show="true" style="margin-top: 15px;margin-bottom: 15px">
+						<div class="col-md-3">
+							<input type="button" class="btn btn-lg btn-primary btn-block" value="Prev" ng-click="testCtrl.goPrevStep(rowIndex, columnIndex)">
+						</div>
+						<div class="col-md-6">
+						</div>
+						<div class="col-md-3">
+							<input type="button" class="btn btn-lg btn-primary btn-block" value="Next" ng-click="testCtrl.goNextStep(rowIndex, columnIndex)">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<div class="modal fade" id="submitTestModal" tabindex="-1" role="dialog" aria-labelledby="submitTestModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">Create a new test</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				Do you want to create a new test with the selected parameters?
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Return</button>
+				<button type="button" ng-click="testCtrl.gotoReview()" class="testsubmit btn btn-primary">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>

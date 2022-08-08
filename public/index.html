@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html ng-app="ExamGround">
+<base href="/">
+	<head>
+		<title>OnlineExam</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/online_css/bootstrap.min.css">
+		<!-- <link rel="stylesheet" href="css/online_css/font-awesome.min.css"> -->
+		<link href="https://fonts.googleapis.com/css?family=Anton|Courgette" rel="stylesheet">
+		<link rel="stylesheet" href="css/bootstrap-social.css"> 
+		<link rel="stylesheet" href="css/main.css"> 
+		<link rel="stylesheet" href="css/login_signup.css" />
+		<link rel="stylesheet" href="css/dashboard.css" />	
+		<link rel="stylesheet" href="css/tests.css" />	
+		<link rel="stylesheet" href="css/circle.css" />	
+		<link rel="stylesheet" href="css/loading-bar.min.css" />
+	</head>
+	<body class="h-100">
+	<div class="loading" ng-show="loading">
+		<span>The test is being prepared...</span>
+	</div>
+	<div ui-view>
+	</div>
+	<!-- Footer -->
+	<footer id="footer">
+		<div class="copyright">
+			Copyright &copy; 2021 ERUD8 v0.19.0
+		</div>
+	</footer>
+
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/humanize-duration/3.12.1/humanize-duration.min.js"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+	<script src="js/online_js/jquery.min.js"></script>
+	<script src="js/online_js/popper.min.js"></script>
+	<script src="js/online_js/bootstrap.min.js"></script>
+	<script src="js/online_js/angular.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
+	<script src="js/online_js/humanize-duration.min.js"></script>
+	<!-- <script src="js/online_js/moment.min.js"></script> -->
+	<script src="js/angular-animate.min.js"></script>
+	<script src="js/angular-ui-router.js"></script>
+	<script src="js/angular-timer.min.js"></script>
+	<script src="js/charts.min.js"></script>
+	<script src="js/angular-chart.min.js"></script>
+	<script src='js/angular-loding-bar.min.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+	<script src="angular/app.js"></script>
+	<script src="./angular/routes.js"></script>
+
+	<!-- Services -->
+
+	<script src="angular/services/queryService.js"></script>
+	<script src="angular/services/authService.js"></script>
+
+	<!--   Controllers -->
+
+	<script src="angular/controllers/userController.js"></script>
+	<script src="angular/controllers/dashController.js"></script>
+	<script src="angular/controllers/testController.js"></script>
+	<script src="angular/controllers/livetestController.js"></script>
+	<script src="angular/controllers/resultsController.js"></script>
+
+	<!-- to get rid of the annoying symbol created by facebook in the url -->
+	<script type="text/javascript">
+			if (window.location.hash && window.location.hash == '#_=_') {
+				window.location.hash = '';
+			}
+	</script>  
+	</body>
+
+</html>

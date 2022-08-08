@@ -1,0 +1,27 @@
+<!-- <button class="btn btn-primary" ng-click="dashCtrl.download_pdf('print_div')" title="Download PDF" data-placement="top">Download</button> -->
+<div class="preview" id="print_div" ng-init="liveCtrl.getreport(tid, uid)">
+  <div class="report_detail" ng-click="dashCtrl.download_pdf('print_div')">
+    <h4>Student Name: {{selected_user}}</h4>
+    <h4>Test Name: {{selected_title}}</h4>
+    <h4>Test Sirial: {{selected_serial}}</h4>
+    <h4>Test Date(created): {{selected_created}}</h4>
+    <h4>Test ID: {{selected_serial}}</h4>
+    <h4>Grade: {{selected_Grade}}</h4>
+    <h4>Total Earned Credits: {{selected_score}}</h4>
+    <h4>Total Test Credits: {{selected_total_score}}</h4>
+  </div>
+
+  <div ng-repeat="(key, question) in liveCtrl.performenced_questions" class="questionsBox_report" >
+    <div class="questions">{{question.question}}</div>
+    <ul class="answerList">
+      <li ng-repeat="(ans_key, ans_value) in question.responses">
+        <label>
+            <input type="radio" ng-model="question.correct_answer" ng-value="ans_key" ng-disabled="question.correct_answer!=ans_key">&nbsp;{{ans_key}}&nbsp;-&nbsp;{{ans_value}}</label>
+      </li>
+      <div class="">
+        <span ng-if="question.your_answer!=question.correct_answer" ng-style="{color: 'red'}">Student's answer : {{question.your_answer}}</span>
+        <span ng-if="question.your_answer==question.correct_answer" ng-style="{color: 'green'}">Student's answer : {{question.your_answer}}</span>
+      </div>
+    </ul>
+  </div>
+</div>

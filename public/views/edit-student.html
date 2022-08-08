@@ -1,0 +1,57 @@
+<!-- create form -->
+
+<h1 class="h2 border-bottom text-center">Edit the Student</h1>
+<form ng-submit="dashCtrl.editUsers('student', selectedUser)" style="margin-top: 30px;">
+	<div class="row align-items-center justify-content-center">
+		<div class="col-md-6 ">
+			<div class="card text-center ">
+				<div class="card-header ">
+					<b>Please Change In The Details</b>
+				</div>
+				<div class="card-body">
+					<div class="form-group">
+						<div class="input-group row">
+							<label class="labels col-md-5">First Name</label>
+							<input class="form-control col-md-7" placeholder="Enter First Name" ng-model="selectedUser.firstname" type="text" autofocus required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group row">
+							<label class="labels col-md-5">Last Name</label>
+							<input class="form-control col-md-7" placeholder="Enter Last Name" ng-model="selectedUser.lastname" type="text" autofocus required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group row">
+							<label class="labels col-md-5">Email</label>
+							<input class="form-control col-md-7" placeholder="Enter Email" ng-model="selectedUser.email" type="email" autofocus required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group row">
+							<label class="labels col-md-5">School/Institution</label>
+							<input class="form-control col-md-7" placeholder="Enter School/Institution" ng-model="selectedUser.institution" type="text" autofocus required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<input class="form-control" placeholder="Password" ng-model="selectedUser.password" type="hidden" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-lg-6 col-md-6">
+								<input class="btn btn-lg btn-primary btn-block" type="submit" value="Edit Student" required>
+							</div>
+							<div class="col-xs-12 col-lg-6 col-md-6">
+								<input class="btn btn-lg btn-primary btn-block" type="submit" value="Cancel" required>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+

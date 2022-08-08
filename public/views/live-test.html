@@ -1,0 +1,87 @@
+<div class="preview">
+    <timer  countdown="2000"  max-time-unit="'minute'" interval="1000" ><b>Time Left: {{mminutes}} minute{{minutesS}}, {{sseconds}} second{{secondsS}}</b></timer>
+    <div ng-repeat="question in liveCtrl.questions | startFrom:liveCtrl.currentPage*liveCtrl.pageSize | limitTo:1" class="questionsBox" >
+
+     <div  class="questions">{{liveCtrl.currentPage+1}}. {{question.question}}</div>
+
+     <ul class="answerList">
+        <li>
+            <label>
+                <input  data-id="{{liveCtrl.currentPage}}" ng-checked="liveCtrl.useroptions[liveCtrl.currentPage].option===1" type="radio"  ng-click="liveCtrl.answers(liveCtrl.currentPage,1,question._id)" name="answerGroup" value="0" >&nbsp;{{question.optionA}}</label>
+            </li>
+            <li>
+                <label>
+                    <input data-id="{{liveCtrl.currentPage}}" type="radio" ng-checked="liveCtrl.useroptions[liveCtrl.currentPage].option===2" ng-click="liveCtrl.answers(liveCtrl.currentPage,2,question._id)" name="answerGroup" value="1" >&nbsp;{{question.optionB}}</label>
+                </li>
+                <li>
+                    <label>
+                        <input data-id="{{liveCtrl.currentPage}}" type="radio" ng-checked="liveCtrl.useroptions[liveCtrl.currentPage].option===3"  ng-click="liveCtrl.answers(liveCtrl.currentPage,3,question._id)" name="answerGroup" value="2" >&nbsp; {{question.optionC}}</label>
+                    </li>
+                    <li>
+                        <label>
+                            <input data-id="{{liveCtrl.currentPage}}" type="radio" ng-checked="liveCtrl.useroptions[liveCtrl.currentPage].option===4"  ng-click="liveCtrl.answers(liveCtrl.currentPage,4,question._id)" name="answerGroup" value="3" >&nbsp; {{question.optionD}}</label>
+                        </li>
+                    </ul>
+                    <div class="questionsRow">
+                        <button ng-disabled="liveCtrl.currentPage >= liveCtrl.questions.length/liveCtrl.pageSize - 1" ng-click="liveCtrl.currentPage=liveCtrl.currentPage+1" class="subques btn btn-lg btn-secondary" >Save & Next</button>
+                        <button ng-disabled="liveCtrl.currentPage == 0" ng-click="liveCtrl.currentPage=liveCtrl.currentPage-1" class="subques btn btn-lg btn-secondary" >Previous</button>
+                        <button class=" btn btn-lg btn-danger" data-toggle="modal"  data-target="#alertModal" ng-if="liveCtrl.questions.length==liveCtrl.currentPage+1" >Submit</button>
+                        <span>{{liveCtrl.currentPage+1}} of {{liveCtrl.questions.length}}</span>
+
+
+                    </div>
+                </div>
+
+                <!-- question pallette -->
+                <div class="container">
+                    <h4>Question Pallette</h4>
+                    <div class="row">
+                       <div class="col-12 ">
+                           <div class="question-pallete">
+                            <div  id="{{$index}}"  ng-repeat="question in liveCtrl.questions" class="square">
+                               <a ng-click="liveCtrl.gotoQues($index)">
+                                   {{$index + 1}}
+                               </a>
+                           </div>
+
+                           <div class="info" >
+                               <span class="info-square-1"></span><span>&nbsp;Attempted</span>
+                               <span class="info-square-2"></span><span>&nbsp;Unanswered</span>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div> 
+
+           <!-- modal to alert for submission of livetest -->
+           <div class="modal fade" id="alertModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <h3 ng-if="liveCtrl.timesup != true">Do you want to Submit?</h3>
+                    <h3 ng-if="liveCtrl.timesup === true">Times Up!! Press Submit button to submit the test.</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" ng-if="liveCtrl.timesup != true" class="btn btn-secondary" data-dismiss="modal">Return</button>
+                    <button type="button"  ng-click="liveCtrl.timesup ? liveCtrl.calculatePerformance() : liveCtrl.stopTimer()" class="testsubmit btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- sharing data to modal -->
+    <script type="text/javascript">
+        $(document).on('click',"input[name='answerGroup']",function(){
+            var qid=$(this).data('id');
+            console.log(qid);
+            $('#'+qid).addClass('box-color');
+        });
+        $('.testsubmit').on('click',function(){
+         $('#alertModal').modal('hide');
+         $('body').removeClass('modal-open');
+         $('.modal-backdrop').remove();
+
+     });
+ </script>
+
+

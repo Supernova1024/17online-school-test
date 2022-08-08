@@ -1,0 +1,65 @@
+<h5 style="color: red;">Click To Get Overall Performance</h5>
+<div class="table-responsive">
+    <table ng-init="dashCtrl.getstudents()"  class="table table-sm">
+     <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">School/Institution</th>
+          <th scope="col">Total Tests</th>
+      </tr>
+  </thead>
+  <tbody>
+    <tr ng-click="dashCtrl.userPerformances(user._id)" ng-repeat="user in dashCtrl.allstudents">
+      <th scope="row"><a>{{$index+1}}</a></th>
+      <td class="hover-style"><a>{{user.name}}</a></td>
+      <td><a>{{user.email}}</a></td>
+      <td ng-if="user.institution"><a>{{user.institution}}</a></td>
+      <td ng-if="!user.institution"><a>NA</a></td>
+      <td ng-if="!user.id"><a>Local</a></td>
+      <td ng-if="user.id.length == 16"><a>Facebook</a></td>
+      <td ng-if="user.id.length == 21"><a>Google</a></td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<!-- Performance modal -->
+<div class="modal fade" id="performanceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Overall Performance</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <div class="row" ng-if="dashCtrl.filteredPerformances.length > 0">
+        <div class="col-8">
+            <h5><b>No. Of Tests Taken:</b> {{dashCtrl.filteredPerformances.length}}</h5>
+            <h5><b>Highest Score:</b> {{dashCtrl.bestPerformance*100}}%</h5>
+            <h5><b>Lowest Score:</b> {{dashCtrl.worstPerformance*100}}%</h5>
+        </div>
+        <div class="col-4">
+            <div class="c100 p{{dashCtrl.avgPerformance * 100}} small" >
+                <span style="color: #000;">{{dashCtrl.avgPerformance * 100}}%</span>
+                <div class="slice">
+                    <div class="bar"></div>
+                    <div class="fill"></div>
+                </div>
+            </div>
+            <h6>Average Performance</h6>
+        </div>
+    </div>
+    <div ng-if="dashCtrl.filteredPerformances.length == 0">
+        <h3><b>No Tests Taken</h3>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+</div>
+</div>
+</div>

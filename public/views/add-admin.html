@@ -1,0 +1,50 @@
+<!-- create form -->
+
+<h1 class="h2 border-bottom text-center">Add a New Administrator</h1>
+<form ng-submit="userCtrl.registerUsers('administrator')" style="margin-top: 30px;">
+	<div class="row align-items-center justify-content-center">
+		<div class="col-md-6 ">
+			<div class="card text-center ">
+				<div class="card-header ">
+					<b>Please Fill In The Details</b>
+				</div>
+				<div class="card-body">
+					<div class="form-group">
+						<div class="input-group row">
+							<label class="labels col-md-5">First Name</label>
+							<input class="form-control col-md-7" placeholder="Enter First Name" ng-model="userCtrl.firstname" type="text" autofocus required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group row">
+							<label class="labels col-md-5">Last Name</label>
+							<input class="form-control col-md-7" placeholder="Enter Last Name" ng-model="userCtrl.lastname" type="text" autofocus required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group row">
+							<label class="labels col-md-5">Email</label>
+							<input class="form-control col-md-7" placeholder="Enter Email" ng-model="userCtrl.email" type="email" autofocus required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group row">
+							<label class="labels col-md-5">Password</label>
+							<input class="form-control col-md-7" placeholder="Password" ng-model="userCtrl.password" type="password" autofocus required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-6 col-lg-6">
+								<input class="btn btn-lg btn-primary btn-block" type="submit" value="Add a new Admin" required>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<input class="btn btn-lg btn-primary btn-block" type="button" ng-click="userCtrl.goAdminList()" value="Cancel" required>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

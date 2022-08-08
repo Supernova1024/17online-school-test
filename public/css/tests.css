@@ -1,0 +1,220 @@
+.modal-body{
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+
+.preview {
+    margin-bottom: 20px ;
+}
+
+.questionsBox_report {
+    display: block;
+    border: solid 1px #e3e3e3;
+    padding: 10px 20px 0px;
+    box-shadow: inset 0 0 30px rgba(000,000,000,0.1), inset 0 0 4px rgba(255,255,255,1);
+    border-radius: 3px;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-bottom: 0.5%;
+    margin-top: 1%;
+}
+
+.questionsBox {
+    display: block;
+    border: solid 1px #e3e3e3;
+    padding: 10px 20px 0px;
+    box-shadow: inset 0 0 30px rgba(000,000,000,0.1), inset 0 0 4px rgba(255,255,255,1);
+    border-radius: 3px;
+    margin: 0 10px;
+}.questions {
+    background: #007fbe;
+    color: #FFF;
+    font-size: 22px;
+    padding: 8px 30px;
+    font-weight: 300;
+    margin: 0 -30px 10px;
+    position: relative;
+}
+.questions:after {
+    display: block;
+    position: absolute;
+    top: 100%;
+    width: 9px;
+    height: 7px;
+    content: '.';
+    left: 0;
+    text-align: left;
+    font-size: 0;
+}
+.questions:after {
+    left: auto;
+    right: 0;
+    background-position: -10px 0;
+}
+.questions:before, .questions:after {
+    background: black;
+    display: block;
+    position: absolute;
+    top: 100%;
+    width: 9px;
+    height: 7px;
+    content: '.';
+    left: 0;
+    text-align: left;
+    font-size: 0;
+}
+.answerList {
+    margin-bottom: 15px;
+}
+
+
+ol, ul {
+    list-style: none;
+}
+.answerList li:first-child {
+    border-top-width: 0;
+}
+
+.answerList li {
+    padding: 3px 0;
+}
+.answerList label {
+    display: block;
+    padding: 6px;
+    border-radius: 6px;
+    border: solid 1px #dde7e8;
+    font-weight: 400;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+}
+input[type=checkbox], input[type=radio] {
+    margin: 4px 0 0;
+    margin-top: 1px;
+    line-height: normal;
+}
+.questionsRow {
+    background: #dee3e6;
+    margin: 0 -20px;
+    padding: 10px 20px;
+    border-radius: 0 0 3px 3px;
+}
+.button, .greyButton {
+    background-color: #f2f2f2;
+    color: #888888;
+    display: inline-block;
+    border: solid 3px #cccccc;
+    vertical-align: middle;
+    text-shadow: 0 1px 0 #ffffff;
+    line-height: 27px;
+    min-width: 160px;
+    text-align: center;
+    padding: 5px 20px;
+    text-decoration: none;
+    border-radius: 0px;
+    text-transform: capitalize;
+}
+.questionsRow span {
+    float: right;
+    display: inline-block;
+    line-height: 30px;
+    border: solid 1px #aeb9c0;
+    padding: 0 10px;
+    background: #FFF;
+    color: #007fbe;
+}
+.question-pallete{
+	position: relative;
+	border:1px solid grey;
+	padding: 10px 10px;
+}
+.square{
+	display: inline-flex;
+	flex-flow: column wrap;
+	margin:10px 10px;
+	height:30px;
+	width: 30px;
+	border:1px solid grey;
+}
+.info{
+	display: inline-flex;
+	align-items: center;
+	position: absolute;
+	right:5px;
+	bottom:0;
+}
+.info-square-1{
+	display: block;
+	background-color: #fff59d;
+	height:15px;
+	width:15px;
+}
+.info-square-2{
+	display: block;
+	margin-left: 10px;
+	border:1px solid grey;
+	height:15px;
+	width:15px;
+}
+.square a{
+	display: table-cell;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 30px;
+	width: 30px;
+}
+.viewed_color {
+    background-color: #fff59d;
+}
+.box-color{
+	background-color: #9DCF00 !important;
+}
+.green-color{
+    border: 2px solid red;
+    font-weight: bold;
+}
+.preview timer{
+    position: absolute;
+    color: #fff;
+    z-index:10000;
+    top:21px;
+    right:250px;
+}
+.report_detail{
+    margin: 3%;
+    padding: 2%;
+    border: solid 1px #e3e3e3;
+    background-color: rgb(250, 250, 250);
+    cursor:pointer;
+}
+
+#countdown {
+    font-family: sans-serif;
+    color: #fff;
+    display: inline-block;
+    font-weight: 100;
+    text-align: center;
+    /*font-size: 30px;*/
+    margin-bottom: 10px;
+}
+
+#countdown > div{
+    padding: 10px;
+    border-radius: 8px;
+    background: #00BF96;
+    display: inline-block;
+}
+
+#countdown div > span{
+    padding: 15px;
+    border-radius: 50%;
+    background: #00816A;
+    display: inline-block;
+}
+
+#countdown .label{
+    padding-top: 5px;
+    font-size: 16px;
+}

@@ -1,0 +1,180 @@
+<!-- create form -->
+
+<h1 ng-if="role == 'Student'" class="h2 border-bottom text-center">Student Profile</h1>
+<h1 ng-if="role == 'Instructor'" class="h2 border-bottom text-center">Instructor Profile</h1>
+<h1 ng-if="role == 'Administrator'" class="h2 border-bottom text-center">Administrator Profile</h1>
+<div class="row align-items-center justify-content-center">
+	<div class="col-md-6 ">
+		<div class="card text-center ">
+			<div class="card-body">
+				<div>
+					<img src="/img/user_profile.png" style="width: 20%" />
+				</div>
+				<div class="form-group">
+					<div class="row" style="padding: .5rem 1rem;font-size: 1.25rem;line-height: 1.5;">
+						<div class="col-md-12">
+							<h2>{{name}}</h2>
+						</div>
+					</div>
+				</div>
+				<ul class="list-group">
+					<li class="list-group-item">
+						<div class="container">
+							<div class=".d-sm-flex align-items-center row">
+								<div class="col-sm">
+									<b class="text-info">Email</b>
+								</div>
+								<div class="col-sm">
+									<b class="text-success">{{user.email}}</b>
+								</div>									
+							</div>
+						</div>							
+					</li>
+					<li class="list-group-item" ng-if="role != 'Administrator'" >
+						<div class="container">
+							<div class=".d-sm-flex align-items-center row">
+								<div class="col-sm">
+									<b ng-if="role == 'Student'" class="text-info">Student ID</b>
+									<b ng-if="role == 'Instructor'" class="text-info">Instructor ID</b>
+								</div>
+								<div class="col-sm">
+									<b class="text-success">{{userID}}</b>
+								</div>									
+							</div>
+						</div>							
+					</li>
+					<li ng-if="role == 'Instructor'" class="list-group-item">
+						<div class="container">
+							<div class=".d-sm-flex align-items-center row">
+								<div class="col-sm">
+									<b class="text-info">Department</b>
+								</div>
+								<div class="col-sm">
+									<b class="text-success">{{user.department}}</b>
+								</div>									
+							</div>
+						</div>							
+					</li>
+					<li class="list-group-item">
+						<div class="container">
+							<div class=".d-sm-flex align-items-center row">
+								<div class="col-sm">
+									<b class="text-info">School/Institution</b>
+								</div>
+								<div class="col-sm">
+									<b class="text-success">{{dashCtrl.currentUser.institution}}</b>
+								</div>									
+							</div>
+						</div>							
+					</li>
+					<li class="list-group-item">
+						<div class="container">
+							<div class=".d-sm-flex align-items-center row mt-3">
+								<div class="col-sm">
+									<button type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary"><i class="fa fa-fw fa-edit" aria-hidden="true"></i>Edit Profile</button></a>
+								</div>
+								<div class="col-sm">
+									<button type="button" data-toggle="modal" data-target="#changepassModal" class="btn btn-outline-dark"><i class="fa fa-fw fa-key" aria-hidden="true"></i>Change Password</button></a>
+								</div>									
+							</div>
+						</div>							
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="min-width:600px">
+    <div class="modal-content">
+      <div class="modal-header" style="margin:0px auto">
+        <h3 class="modal-title " id="exampleModalLabel">Edit Profile</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; right: 20px; top: 20px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="font-size:20px; padding: 2rem">
+		<div class="row mt-2">
+			<div class="col-md-6">
+				<label class="labels">First Name</label>
+				<input type="text" class="form-control" placeholder="first name" ng-model="user.first" ng-value="name.split(' ')[0]">
+			</div>
+			<div class="col-md-6">
+				<label class="labels">Last Name</label>
+				<input type="text" class="form-control" ng-model="user.last" ng-value="name.split(' ')[1]" placeholder="last name">
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-md-12"><label class="labels">Email Address</label><input type="email" class="form-control" placeholder="enter your email address" ng-model="user.email" value="email"></div>
+		</div>
+		<div class="row mt-3" ng-if="role == 'Student'">
+			<div class="col-md-12">
+				<label class="labels">Student ID</label>
+				<input type="text" class="form-control" placeholder="enter your student id" ng-model="user.student_id">
+			</div>
+		</div>
+		<div class="row mt-3" ng-if="role == 'Instructor'">
+			<div class="col-md-12">
+				<label class="labels">Instructor ID</label>
+				<input type="text" class="form-control" placeholder="enter your instructor id" ng-model="user._id">
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-md-12">
+				<label class="labels">School/Institution</label>
+				<input type="text" class="form-control" placeholder="enter your School/Institution" ng-model="user.institution">
+			</div>
+		</div>
+		<div class="row mt-3" ng-if="role == 'Instructor'">
+			<div class="col-md-12">
+				<label class="labels">Department</label>
+				<select class="custom-select" ng-model="user.department" ng-value="department" style="font-size: 1rem">
+				  <option selected>select your department</option>
+				  <option value="Department 1">Department 1</option>
+				  <option value="Department 2">Department 2</option>
+				  <option value="Department 3">Department 3</option>
+				  <option value="Department 4">Department 4</option>
+				</select>
+			</div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" ng-click="dashCtrl.saveprofile(user)" class=" starttest btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changepassModal" tabindex="-1" role="dialog" aria-labelledby="changepassModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="min-width:600px">
+    <div class="modal-content">
+      <div class="modal-header" style="margin:0px auto">
+        <h3 class="modal-title " id="exampleModalLabel">Change Password</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; right: 20px; top: 20px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="font-size:20px; padding: 2rem">
+		<div class="row mt-3">
+			<div class="col-md-12"><label class="labels">Current Password</label>
+				<input type="password" class="form-control" placeholder="enter current password" ng-model="pass.current" ng-keyup="resetMessage('current')" required>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-md-12"><label class="labels">New Password</label><input type="password" class="form-control" placeholder="enter new password" ng-model="pass.new" ng-keyup="resetMessage('mismatch')" required></div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-md-12"><label class="labels">Confirm Password</label><input type="password" class="form-control" placeholder="confirm password" ng-model="pass.confirm" ng-keyup="resetMessage('mismatch')" required></div>
+		</div>
+		<span class="error_message spassword_error" ng-show="dashCtrl.mismatch">{{dashCtrl.message}}</span>
+      <div class="modal-footer">
+      	<div class="row mt-3">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 10px">Cancel</button>
+	        <button type="button" ng-click="dashCtrl.changepassword(pass)" class=" starttest btn btn-primary">Save</button>
+	    	</div>
+      </div>
+    </div>
+  </div>
+</div>

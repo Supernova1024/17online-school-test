@@ -1,0 +1,66 @@
+<div class="card mb-3" ng-init="dashCtrl.getalltestresults()">
+  <div class="card-header">
+    <h4>Results for {{dashCtrl.alltestresults[0]['test'].title}}</h4>
+    <br/>
+    <h5>Test Serial: {{dashCtrl.alltestresults[0]['test'].serial}}</h5>
+    <h5>Instructor : {{name}}</h5>
+    <!-- <input class="form-control float-right col-sm-2" ng-model="filterusers.name" type="search" placeholder="Search name.." aria-label="Search"> -->
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Student</th>
+            <th scope="col">Total Score</th>
+            <th scope="col">Grade</th>
+            <th scope="col">Test Serial</th>
+            <th scope="col">Date/Time Taken</th>
+            <th scope="col">MCQ-Comp-Easy</th>
+            <th scope="col">MCQ-Comp-Med</th>
+            <th scope="col">MCQ-Comp-Hard</th>
+            <th scope="col">MCQ-SA-Easy</th>
+            <th scope="col">MCQ-SA-Med</th>
+            <th scope="col">MCQ-SA-Hard</th>
+            <th scope="col">TFQ-Comp-Easy</th>
+            <th scope="col">TFQ-Comp-Med</th>
+            <th scope="col">TFQ-Comp-Hard</th>
+            <th scope="col">TFQ-SA-Easy</th>
+            <th scope="col">TFQ-SA-Med</th>
+            <th scope="col">TFQ-SA-Hard</th>
+            <th scope="col">View&Download</th>
+            <!-- <th scope="col">Make a Report</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-if="dashCtrl.alltestresults" ng-repeat="student in dashCtrl.alltestresults">
+            <td>{{$index + 1}}</td>
+            <td>{{student.user}}</td>
+            <td>{{student.score}}/{{student.total_score}}</td>
+            <td>{{dashCtrl.Math.round(student.score*100/student.total_score, 2)}}%</td>
+            <td>{{student.test.serial}}</td>
+            <td>{{student.created.replace('T', ' ').split(".")[0]}}</td>
+            <td>{{student.analysis.mcq_comp_easy.correct}}/{{student.analysis.mcq_comp_easy.total}}</td>
+            <td>{{student.analysis.mcq_comp_medium.correct}}/{{student.analysis.mcq_comp_medium.total}}</td>
+            <td>{{student.analysis.mcq_comp_hard.correct}}/{{student.analysis.mcq_comp_hard.total}}</td>
+            <td>{{student.analysis.mcq_sa_easy.correct}}/{{student.analysis.mcq_sa_easy.total}}</td>
+            <td>{{student.analysis.mcq_sa_medium.correct}}/{{student.analysis.mcq_sa_medium.total}}</td>
+            <td>{{student.analysis.mcq_sa_hard.correct}}/{{student.analysis.mcq_sa_hard.total}}</td>
+            <td>{{student.analysis.tfq_comp_easy.correct}}/{{student.analysis.tfq_comp_easy.total}}</td>
+            <td>{{student.analysis.tfq_comp_medium.correct}}/{{student.analysis.tfq_comp_medium.total}}</td>
+            <td>{{student.analysis.tfq_comp_hard.correct}}/{{student.analysis.tfq_comp_hard.total}}</td>
+            <td>{{student.analysis.tfq_sa_easy.correct}}/{{student.analysis.tfq_sa_easy.total}}</td>
+            <td>{{student.analysis.tfq_sa_medium.correct}}/{{student.analysis.tfq_sa_medium.total}}</td>
+            <td>{{student.analysis.tfq_sa_hard.correct}}/{{student.analysis.tfq_sa_hard.total}}</td>
+            <td><button class="btn btn-primary" ng-click="dashCtrl.gotoTestReport(student.testId, student.user_id, student.user, student.test.title, student.test.serial, student.created, student.score, student.total_score)" data-toggle="tooltip" title="View" data-placement="top">View&Download</button></td>
+            <!-- <td><button class="btn btn-primary" ng-click="dashCtrl.download(student)" data-toggle="tooltip" title="Download PDF" data-placement="top">Download</button></td> -->
+          </tr>
+          <tr ng-if="!dashCtrl.alltestresults || (dashCtrl.alltestresults.length == 0)">
+            <td colspan="19" style="text-align:center">No tests have been taken.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

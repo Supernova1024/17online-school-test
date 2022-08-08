@@ -1,0 +1,58 @@
+<div class="backbtn text-center">
+	<a href="/" class=" btn btn-danger btn-lg"><i class="fa fa-arrow-left"></i> Go Back To HomePage</a>
+	<div class="container ">
+		<div class="signup-form">
+			<form  ng-submit="userCtrl.registerUser()">
+				<div class="row align-items-center justify-content-center">
+					<div class="col-md-6 ">
+						<div class="card text-center ">
+							<div class="card-header text-lead ">
+								Sign Up
+							</div>
+							<span class="error_message spassword_error" ng-show="userCtrl.validate_token">Sorry, but you are trying to register with an invalid token.</span>
+							<div class="card-body">
+								<div class="card-title font-weight-bold">
+									Get Started!
+								</div>
+								<p>{{userCtrl.notify}}</p>
+								<div class="form-group">
+									<div class="input-group">
+										<input class="form-control" placeholder="FirstName" ng-model="userCtrl.firstname" type="text" autofocus required>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="input-group">
+										<input class="form-control" ng-model-options="{allowInvalid: '$inherit'}" placeholder="LastName" ng-model="userCtrl.lastname" type="text"   >
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="input-group">
+										<input class="form-control" placeholder="Email" ng-model="userCtrl.email" type="email" value="" required>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="input-group">
+										<input class="form-control" placeholder="Password" ng-model="userCtrl.password" type="password" value="" ng-change="userCtrl.checkPassword()" required>
+									</div>
+									<span class="error_message spassword_error" ng-show="userCtrl.validate_password">Password must contain at least 8 letters, numbers, and special characters.</span>
+								</div>
+								<div class="form-group">
+									<div class="input-group">
+										<input class="form-control" placeholder="Confirm Password" ng-model="userCtrl.confirmpassword" type="password" value="" required>
+									</div>
+									<span class="error_message spassword_error" ng-show="userCtrl.mismatch_password">The Password doesn't match.</span>
+								</div>
+								<!-- <input class="form-control" ng-model="userCtrl.role" type="hidden" value="2" required>							 -->
+								<div class="form-group">
+									<input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign Up" required>
+								</div>
+							</div>
+							<div class="card-footer text-muted">
+								Already a Member? <a href="/login/" > Sign In Here </a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>

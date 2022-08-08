@@ -1,0 +1,58 @@
+<div ng-init="dashCtrl.getadministrators()" class="card mb-3">
+  <div class="card-header">
+    <i class="fa fa-users"></i> Available Administrators
+    <input class="form-control float-right col-sm-2" ng-model="filterusers.name" type="search" placeholder="Search name.." aria-label="Search">
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-if="user" ng-repeat="user in dashCtrl.alladmins | filter:filterusers" >
+            <th scope="row" style="vertical-align: inherit;"><a>{{$index+1}}</a></th>
+            <td class="hover-style"><a>{{user.name}}</a></td>
+            <td><a>{{user.email}}</a></td>
+            <td ng-if="!user.id" style="vertical-align: inherit;text-align: center">
+              <button class="btn btn-warning col-md-4" ng-click="dashCtrl.editAdministrator(user)" style="margin-right:10px">Edit</button><button class="btn col-md-5 btn-danger" ng-click="dashCtrl.deleteAdministrator(user._id, $index)">Delete</button>
+            </td>
+
+          </tr>
+          <tr ng-if="!user">
+            <td colspan="5" style="text-align:center">There is no administrators to be registered.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Delete an Administrator</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Do you really want to delete this administrator?
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Return</button>
+        <button type="button" ng-click="dashCtrl.confirmDeleteAdministrator()" class="testsubmit btn btn-primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>

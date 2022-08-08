@@ -1,0 +1,6 @@
+_pycache_
+_pycache_/
+node_modules
+.env
+daily_git.py
+test_cmd.py

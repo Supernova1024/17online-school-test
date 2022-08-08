@@ -1,0 +1,56 @@
+<div class="backbtn text-center">
+	<a href="/" class=" btn btn-danger btn-lg"><i class="fa fa-arrow-left"></i> Go Back To HomePage</a>
+	<div class="login_page">
+		<div class="container ">
+			<div class="login-form">
+				<form ng-submit="userCtrl.loginUser()">
+					<div class="row align-items-center justify-content-center">
+						<div class="col-md-6 ">
+							<div class="card text-center ">
+								<div class="card-header ">
+									Sign In
+								</div>
+								<span class="error_message spassword_error" ng-show="userCtrl.validate_token">Sorry, but you are logging in with an invalid token.</span>
+								<div class="card-body">
+									<!-- <div class="card-title">
+										<p>{{userCtrl.notify}}</p>
+										<div class="row">
+											<div class="col-md-6">
+												<a href="/auth/google" target="_blank" class="btn btn-block btn-social btn-google text-white">
+													<span class="fa fa-google"></span> Sign in with Google
+												</a>
+											</div>
+											<div class="col-md-6">
+												<a href="/auth/facebook" target="_blank" class="btn btn-block btn-social btn-facebook text-white">
+													<span class="fa fa-facebook"></span> Sign in with Facebook
+												</a>
+											</div>
+										</div>
+									</div>
+									<div id="hr"><span>OR</span></div> -->
+									<div class="form-group">
+										<div class="input-group">
+											<input class="form-control" placeholder="Username" ng-model="userCtrl.email" type="text" value="" required>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="input-group">
+											<input class="form-control" placeholder="Password" ng-model="userCtrl.password" type="password" value="" required>
+										</div>
+									</div>
+									<span class="error_message spassword_error" ng-show="userCtrl.incorrect">Incorrect Password.</span>
+									<div class="form-group">
+										<input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in" required="">
+									</div>
+									<a href="/forgotpass">Forgot Password?</a>
+								</div>
+								<div class="card-footer text-muted">
+									Don't have an account? <a ng-href="/signup/{{userCtrl.token}}" > Sign Up Here </a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>

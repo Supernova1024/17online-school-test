@@ -1,0 +1,214 @@
+<script>
+	$( "div.tree li" ).has( "ul" ).addClass('parent_li');
+	$('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+	$(document).on('click', '.tree li.parent_li > span', function (e) {
+		var children = $(this).parent('li.parent_li').find(' > ul > li');
+		if (children.is(":visible")) {
+			children.hide('fast');
+			$(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-folder-close').removeClass('icon-folder-open');
+		} else {
+			children.show('fast');
+			$(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-folder-open').removeClass('icon-folder-close');
+		}
+		e.stopPropagation();
+	});
+</script>
+<button type="button" data-id="{{areaofstudy._id}}" data-toggle="modal" data-target="#AddareaofstudyModal" class="btn btn-outline-success"><i class="fa fa-fw fa-plus" aria-hidden="true"></i>Add a New Area of Study</button>
+<div class="tree well" style="margin-top: 20px" ng-init="testCtrl.viewAreas()">
+	<ul>
+		<li ng-repeat="areaofstudy in testCtrl.areas">
+			<span><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> {{areaofstudy.name}}</span> <a href="">{{areaofstudy.description}}</a>
+			<div class="pull-right btn-group btn-group-sm">
+				<button  ng-click="testCtrl.editCategory(areaofstudy._id, 'area')" type="button" data-id="{{test.testid}}" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary"><i class="fa fa-fw fa-pencil" aria-hidden="true"></i></button>
+				<button  ng-click="testCtrl.deleteArea(areaofstudy._id)" type="button" data-id="{{test.testid}}" data-toggle="modal" data-target="#deleteareaofstudyModal" class="btn btn-outline-primary"><i class="fa fa-fw fa-trash" aria-hidden="true"></i></button>
+				<button  type="button" data-id="{{areaofstudy._id}}" data-toggle="modal" data-target="#AddsubjectModal" class=" addsubject btn btn-outline-success"  ng-click="testCtrl.selectareaofstudy(areaofstudy._id)"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>
+			</div> 
+			<ul>
+				<li ng-repeat="subject in areaofstudy.subjects">
+					<span><i class="fa fa-fw fa-folder-open"></i> {{subject.name}}</span> <a href="">{{subject.description}}</a>
+					<div class="pull-right btn-group btn-group-sm">
+						<button  ng-click="testCtrl.editCategory(subject._id, 'subject')" type="button" data-id="{{subject._id}}" data-toggle="modal"  data-target="#editModal" class="viewsubject btn btn-outline-primary"><i class="fa fa-fw fa-pencil" aria-hidden="true"></i></button>
+						<button  ng-click="testCtrl.deleteSubject(areaofstudy._id, subject._id)" type="button" data-id="{{subject._id}}" data-toggle="modal"  data-target="#DeletesubjectModal" class="Deletesubject btn btn-outline-primary"><i class="fa fa-fw fa-trash" aria-hidden="true"></i></button>
+						<button type="button" data-id="{{subject._id}}" data-toggle="modal" data-target="#AddcourseModal" class="btn btn-outline-success" ng-click="testCtrl.selectsubject(areaofstudy._id, $index)"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>
+					</div>
+					<ul>
+						<li ng-repeat="course in subject.courses">
+							<span><i class="fa fa-fw fa-leaf"></i> {{course.name}}</span> <a href="">{{course.description}}</a>
+							<div class="pull-right btn-group btn-group-sm">
+								<button  ng-click="testCtrl.editCategory(course._id, 'course')" type="button" data-id="{{course._id}}" data-toggle="modal"  data-target="#editModal" class="viewcourse btn btn-outline-primary"><i class="fa fa-fw fa-pencil" aria-hidden="true"></i></button>
+								<button ng-click="testCtrl.deleteCourse(areaofstudy._id, subject._id, course._id)" type="button" data-id="{{course._id}}" data-toggle="modal"  data-target="#DeletecourseModal" class="deletecourse btn btn-outline-primary"><i class="fa fa-fw fa-trash" aria-hidden="true"></i></button>
+								<button type="button" data-id="{{course._id}}" data-toggle="modal" data-target="#AddchapterModal" class="btn btn-outline-success" ng-click="testCtrl.selectcourse(areaofstudy._id, $parent.$index, $index)"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>
+							</div>
+							<ul>
+								<li ng-repeat="chapter in course.chapters">
+									<span><i class="fa fa-fw fa-leaf"></i> {{chapter.name}}</span> <a href="">{{chapter.description}}</a>
+									<div class="pull-right btn-group btn-group-sm">
+										<button  ng-click="testCtrl.editCategory(chapter._id, 'chapter')" type="button" data-id="{{chapter._id}}" data-toggle="modal"  data-target="#editModal" class="viewchapter btn btn-outline-primary"><i class="fa fa-fw fa-pencil" aria-hidden="true"></i></button>
+										<button  ng-click="testCtrl.deleteChapter(areaofstudy._id, subject._id, course._id, chapter._id)" type="button" data-id="{{chapter._id}}" data-toggle="modal"  data-target="#DeletechapterModal" class="deletechapter btn btn-outline-primary"><i class="fa fa-fw fa-trash" aria-hidden="true"></i></button>
+										<button type="button" data-id="{{chapter._id}}" data-toggle="modal" data-target="#AddtopicModal" class="btn btn-outline-success" ng-click="testCtrl.selectchapter(areaofstudy._id, $parent.$parent.$index, $parent.$index, $index)"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>
+									</div>
+									<ul>
+										<li ng-repeat="topic in chapter.topics">
+											<span><i class="fa fa-fw fa-leaf"></i> {{topic.name}}</span> <a href="">{{topic.description}}</a>
+											<div class="pull-right btn-group btn-group-sm">
+												<button  ng-click="testCtrl.editCategory(topic._id, 'topic')" type="button" data-id="{{topic._id}}" data-toggle="modal"  data-target="#editModal" class="viewchapter btn btn-outline-primary"><i class="fa fa-fw fa-pencil" aria-hidden="true"></i></button>
+												<button  ng-click="testCtrl.deleteTopic(areaofstudy._id, subject._id, course._id, chapter._id, topic._id)" type="button" data-id="{{topic._id}}" data-toggle="modal"  data-target="#DeletetopicModal" class="deletetopic btn btn-outline-primary"><i class="fa fa-fw fa-trash" aria-hidden="true"></i></button>
+											</div>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<!-- Add areaofstudy Modal -->
+<div class="modal fade" id="AddareaofstudyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Add a New Area of Study</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="input-group">
+						<input class="form-control" placeholder="Enter the Name here." ng-model="testCtrl.areaofstudyName" type="text" value="" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<textarea rows="3" class="form-control" placeholder="Enter the description here.." ng-model="testCtrl.areaofstudyDescription" type="text" value="" required></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" ng-click="testCtrl.createareaofstudy()" class="btn btn-primary">Create a New areaofstudy</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Add subject Modal -->
+<div class="modal fade" id="AddsubjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Add a New subject</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="input-group">
+						<input class="form-control" id="subjectname" ng-change placeholder="Title" ng-model="testCtrl.subjectname" type="text" autofocus required >
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<textarea rows="3" class="form-control" placeholder="Description" ng-model="testCtrl.subjectdescription" type="text" value="" required></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" ng-click="testCtrl.createsubject()" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Add course Modal -->
+<div class="modal fade" id="AddcourseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Add a New course</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="input-group">
+						<input class="form-control" id="coursename" ng-change placeholder="Title" ng-model="testCtrl.coursename" type="text" autofocus required >
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<textarea rows="3" class="form-control" placeholder="Description" ng-model="testCtrl.coursedescription" type="text" value="" required></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" ng-click="testCtrl.createcourse()" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Add chapter Modal -->
+<div class="modal fade" id="AddchapterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Add a New Chapter</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="input-group">
+						<input class="form-control" id="chaptername" ng-change placeholder="Title" ng-model="testCtrl.chaptername" type="text" autofocus required >
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<textarea rows="3" class="form-control" placeholder="Description" ng-model="testCtrl.chapterdescription" type="text" value="" required></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" ng-click="testCtrl.createchapter()" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Add topic Modal -->
+<div class="modal fade" id="AddtopicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Add a New Topic</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="input-group">
+						<input class="form-control" id="topicname" ng-change placeholder="Title" ng-model="testCtrl.topicname" type="text" autofocus required >
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<textarea rows="3" class="form-control" placeholder="Description" ng-model="testCtrl.topicdescription" type="text" value="" required></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" ng-click="testCtrl.createtopic()" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>

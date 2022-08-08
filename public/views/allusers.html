@@ -1,0 +1,22 @@
+
+<table ng-init="testCtrl.enrolledUsers()" class="table table-sm">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">Score</th>
+            <th scope="col">Correct Answers</th>
+            <th scope="col">Time Taken</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in testCtrl.testattemptedBy" >
+            <th scope="row"><a>{{$index+1}}</a></th>
+            <td><a>{{user.userEmail}}</a></td>
+            <td><a>{{user.score}}</a></td>
+            <td><a>{{user.totalCorrectAnswers}}</a></td>
+            <td><a>{{user.timeTaken}}s</a></td>
+        </tr>
+    </tbody>
+</table>

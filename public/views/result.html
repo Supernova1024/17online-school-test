@@ -1,0 +1,78 @@
+
+<div class="card border-primary mb-3" >
+
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title text-center">Test Information</h5>
+			<div class="d-sm-flex align-items-center row" >
+				<!-- <div class="col-sm text-center"><b style="font-size: 20px;">{{resultCtrl.noOfStudents}}</b> <p>Students</p></div> -->
+				<div class="col-sm text-center"><b style="font-size: 20px;text-transform: uppercase;">{{resultCtrl.testname}}</b> <p>Test Name</p></div>
+				<div class="col-sm text-center"><b style="font-size: 20px;">{{resultCtrl.datetimetaken}}</b> <p>Datetime Taken</p></div>
+				<div class="col-sm text-center"><b style="font-size: 20px;">{{resultCtrl.testserial}}</b> <p>Test Serial Number</p></div>
+
+			</div>
+		</div>
+	</div>
+	<div class="card-body text-primary" >
+		<div class="row">
+			<!-- <div class="col-sm-2">
+				<div class="card text-white  mb-3" style="max-width: 18rem; ">
+					<div class="card-body ">
+						<h3 class="card-title text-center" style="color: #000;"><i class="fa fa-trophy" style="color: #FFD700;"aria-hidden="true"></i> {{resultCtrl.rank}}</h3>
+						<p class="text-center" style="color: #000;">Rank</p>
+					</div>
+				</div>
+			</div> -->
+			<div class="col-sm-2">
+				
+				<div class="card text-white  mb-3" style="max-width: 18rem; ">
+					
+					<div class="card-body ">
+						
+						<h3 class="card-title text-center" style="color: #000;">{{resultCtrl.performance.score}}</h3>
+						<p class="text-center" style="color: #000;">Credit Scored</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<div class="d-flex align-items-center card text-white mb-3" style="max-width: 18rem;">
+					<div class=" card-body" >
+						<h5 class="card-title" style="color: #000;">Percentile</h5>
+						
+						<div class="c100 p{{resultCtrl.percentile | number:0}} small" >
+							<span style="color: #000;">{{resultCtrl.percentile| number:2}}%</span>
+							<div class="slice">
+								<div class="bar"></div>
+								<div class="fill"></div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="card text-white mb-3 align-items-center">
+
+					<div class="card-body" style="color: #000;">
+
+						<canvas  id="pie" class="chart chart-pie"
+						chart-data="resultCtrl.data" chart-labels="resultCtrl.labels"  chart-options="resultCtrl.options">
+					</canvas> 
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<div class="card">
+	<div class="card-body">
+		<h5 class="card-title text-center">Time Statistics</h5>
+		<div class="d-sm-flex align-items-center row" >
+			<div class="col-sm text-center"><b style="font-size: 20px;">{{resultCtrl.noOfQuestions}}</b> <p>Questions</p></div>
+			<div class="col-sm text-center"><b style="font-size: 20px;">{{resultCtrl.timeTaken}}</b> <p>Time Taken</p></div>
+			<!-- <div class="col-sm text-center"><b style="font-size: 20px;">{{resultCtrl.performance.timeTaken/resultCtrl.noOfQuestions | number:2}}s</b> <p>Avg Speed</p></div> -->
+		</div>
+	</div>
+</div>
+</div>
+
